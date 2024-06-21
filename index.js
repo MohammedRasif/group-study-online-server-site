@@ -7,7 +7,9 @@ const port = process.env.PORT || 5000;
 
 //middleware
 app.use(cors({
-  origin:['http://localhost:5175','https://group-study-d6cf6.web.app','https://group-study-d6cf6.firebaseapp.com'],
+  origin:['http://localhost:5173'
+    ,'https://group-study-d6cf6.web.app','https://group-study-d6cf6.firebaseapp.com'
+  ],
       credentials:true,
       optionsSuccessStatus:200
 })
@@ -48,6 +50,7 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     const assignmentCollection = client.db('studyDB').collection('study')
+    const submitedCollection = client.db("studyDB").collection("submit")
 
 
 
@@ -133,6 +136,18 @@ async function run() {
         res.send(result)
     })
 
+    app.post('/submited',async(req,res) =>{
+      const submit = req.body;
+      console.log('submit ' , submit)
+      const submitResult = await submitedCollection.insertOne(submit)
+      res.send(submitResult)
+    })
+
+    app.get('/submited',async(req,res)=>{
+      const result = await submitedCollection.find().toArray();
+      //console.log(result)
+      res.send(result);
+    })
 
 
     app.post('/study',async(req,res)=>{
