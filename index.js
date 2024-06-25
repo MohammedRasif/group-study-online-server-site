@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 const app = express();
@@ -7,7 +8,7 @@ const port = process.env.PORT || 5000;
 
 //middleware
 app.use(cors({
-  origin:['http://localhost:5173'
+  origin:['http://localhost:5174'
     ,'https://group-study-d6cf6.web.app','https://group-study-d6cf6.firebaseapp.com'
   ],
       credentials:true,
