@@ -12,7 +12,7 @@ app.use(cors({
     ,'https://group-study-d6cf6.web.app','https://group-study-d6cf6.firebaseapp.com'
   ],
       credentials:true,
-      optionsSuccessStatus:200
+      optionsSuccessStatus:200 ,
 })
 );
 app.use(express.json());
