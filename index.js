@@ -150,6 +150,35 @@ async function run() {
       res.send(result);
     })
 
+    app.put(`/submited/:id`,async(req,res) =>{
+      const id = req.params.id;
+      const filter = {_id:new ObjectId(id)}
+      const options = {upsert:true};
+      const updatedStudy = req.body;
+      const update = {
+          $set:{
+               title:updatedStudy.title,
+               marks:updatedStudy.marks,
+               date:updatedStudy.date,
+               assignment:updatedStudy.assignment,
+               photo:updatedStudy.photo,
+               pdf:updatedStudy.pdf,
+               description:updatedStudy.description,
+               status:updatedStudy.status
+          }
+      }
+      const result = await submitedCollection.updateOne(filter,update,options);
+      res.send(result)
+  })
+
+
+  app.get('/submited/:id',async(req,res)=>{
+    const id = req.params.id;
+    const query = {_id: new ObjectId(id)}
+    const result = await submitedCollection.findOne(query);
+    res.send(result);
+})
+
 
     app.post('/study',async(req,res)=>{
         const newAssignment = req.body;
